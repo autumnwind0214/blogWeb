@@ -34,10 +34,10 @@ export const useAuthStore = defineStore('auth', () => {
     // authButtonList.value = data
   }
 
-  // todo Get AuthMenuList
+  // Get AuthMenuList
   async function getAuthMenuList() {
-    // const { data } = await getAuthMenuListApi()
-    // authMenuList.value = data
+    const { data } = await getAuthMenuListApi()
+    authMenuList.value = data
   }
 
   // todo Get AuthRoleList

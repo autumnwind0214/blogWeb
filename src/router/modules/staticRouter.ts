@@ -1,5 +1,6 @@
 import { HOME_URL, LOGIN_URL } from '@/config'
 import type { RouteRecordRaw } from 'vue-router'
+import { TrueFalseEnum } from '@/enums'
 
 export const staticRouter: RouteRecordRaw[] = [
   {
@@ -27,10 +28,10 @@ export const staticRouter: RouteRecordRaw[] = [
         meta: {
           title: '首页',
           icon: 'HomeFilled',
-          isAffix: 'T',
-          isFull: 'F',
-          isHidden: 'F',
-          isKeepAlive: 'T'
+          hasAffix: TrueFalseEnum.T,
+          hasFull: TrueFalseEnum.F,
+          hasHidden: TrueFalseEnum.F,
+          hasKeepAlive: TrueFalseEnum.T
         }
       }
     ]

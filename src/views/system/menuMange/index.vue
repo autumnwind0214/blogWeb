@@ -12,7 +12,8 @@
     >
       <!-- 表格 header 按钮 -->
       <template #tableHeader>
-        <el-button v-auth="'sys.menu.create_btn'" type="primary" :icon="CirclePlus" @click="openAddEdit('新增菜单')">
+        <!--<el-button v-auth="'sys.menu.create_btn'" type="primary" :icon="CirclePlus" @click="openAddEdit('新增菜单')">-->
+        <el-button type="primary" :icon="CirclePlus" @click="openAddEdit('新增菜单')">
           新增菜单
         </el-button>
         <el-button type="info" :icon="Sort" @click="changeExpand"> 展开/折叠</el-button>
@@ -26,7 +27,7 @@
       </template>
       <template #useDataScope="scope">
         <el-switch
-          v-if="scope.row.menuTypeCd == '1002002'"
+          v-if="scope.row.menuType == '1002002'"
           v-model="scope.row.meta.useDataScope"
           :active-value="'T'"
           :inactive-value="'F'"
@@ -40,7 +41,7 @@
         <el-button
           v-auth="'sys.menu.create_btn'"
           type="primary"
-          v-if="row.menuTypeCd !== MENU_BTN"
+          v-if="row.menuType !== MenuType.BUTTON.key"
           link
           :icon="CirclePlus"
           @click="openAddEdit('新增菜单', row)"
@@ -73,14 +74,14 @@ import ProTable from '@/components/ProTable/index.vue'
 import { addMenu, deleteMenu, editMenu, exportMenuSql, getMenuInfo, getMenuList, chaneDataRole } from '@/api/modules/system/menu'
 import MenuForm from '@/views/system/menuMange/components/MenuForm.vue'
 import { useHandleData } from '@/hooks/useHandleData'
-import { MENU_BTN, MENU_DIR, MENU_PAGE } from '@/config/consts'
-import { useOptionsStore } from '@/stores/modules/options'
 import type { IMenu } from '@/api/interface/system/menu'
 import type { ColumnProps, ProTableInstance } from '@/components/ProTable/interface'
 import HighCode from '@/components/HighCode/index.vue'
 import { computed, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import SvgIcon from '@/components/SvgIcon/index.vue'
+import { MenuType } from '@/enums'
+import { useOptionsStore } from '@/stores/modules/options'
 
 defineOptions({
   name: 'MenuManage'
@@ -102,7 +103,7 @@ const columns: ColumnProps<Menu.MenuOptions>[] = [
   { type: 'index', label: '#' },
   { prop: 'meta.title', label: '名称', align: 'left' },
   {
-    prop: 'menuTypeCd',
+    prop: 'menuType',
     label: '类型',
     width: 100,
     tag: true,
@@ -128,18 +129,18 @@ const menuFormRef = ref<InstanceType<typeof MenuForm>>()
 const openAddEdit = async (title: string, row: any = {}, isAdd = true) => {
   let orig = {}
   if (isAdd) {
-    let pid = row.id || '0'
+    let pid = row.id || 0
     const sort = presort(row, pid)
     orig = {
       pid: pid,
       icon: '',
       sort: sort,
-      menuTypeCd: row.menuTypeCd === MENU_DIR ? MENU_PAGE : row.menuTypeCd === MENU_PAGE ? MENU_BTN : MENU_DIR,
-      isLink: 'F',
-      isHidden: 'F',
-      isFull: 'F',
-      isAffix: 'F',
-      isKeepAlive: 'F'
+      menuType: row.menuType === undefined || row.menuType === '' ? MenuType.DIRECTORY.key : row.menuType,
+      hasLink: 0,
+      hasHidden: 0,
+      hasFull: 0,
+      hasAffix: 0,
+      hasKeepAlive: 0
     }
   } else {
     const { data } = await getMenuInfo({ id: row.id })

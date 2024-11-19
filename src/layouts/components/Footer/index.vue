@@ -1,7 +1,7 @@
 <template>
   <div class="footer flx-center">
     <a href="https://szadmin.cn" target="_blank">
-      Blog-Admin v{{ version }} | Copyright © 2022-{{ new Date().getFullYear() }}
+      Autumn v{{ version }} | Copyright © 2022-{{ new Date().getFullYear() }}
     </a>
   </div>
 </template>

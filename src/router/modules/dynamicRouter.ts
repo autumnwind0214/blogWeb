@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/modules/auth'
 import { LOGIN_URL } from '@/config'
 import router from '@/router'
 import type { RouteRecordRaw } from 'vue-router'
+import { useOptionsStore } from '@/stores/modules/options'
 
 // 引入 views 文件夹下所有 vue 文件
 const modules = import.meta.glob('@/views/**/*.vue')
@@ -12,6 +13,7 @@ const modules = import.meta.glob('@/views/**/*.vue')
 export const initDynamicRouter = async () => {
   const userStore = useUserStore()
   const authStore = useAuthStore()
+  const optionsStore = useOptionsStore()
 
   try {
     if (authStore.isLoaded) return
@@ -19,6 +21,8 @@ export const initDynamicRouter = async () => {
     await authStore.getAuthMenuList()
     await authStore.getAuthButtonList()
     await authStore.getAuthRoleList()
+    optionsStore.setReloadOptions()
+    await optionsStore.getAllDictList()
     await authStore.setLoaded()
 
     // 2.添加动态路由
@@ -27,7 +31,7 @@ export const initDynamicRouter = async () => {
       if (item.component && typeof item.component == 'string') {
         item.component = modules['/src/views' + item.component + '.vue']
       }
-      if (item.meta.isFull === 'T') {
+      if (item.meta.hasFull === 1) {
         router.addRoute(item as unknown as RouteRecordRaw)
       } else {
         router.addRoute('layout', item as unknown as RouteRecordRaw)

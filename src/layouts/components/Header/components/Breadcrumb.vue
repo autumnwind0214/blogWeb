@@ -25,6 +25,7 @@ import { HOME_URL } from '@/config'
 import { useAppStore } from '@/stores/modules/app'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { MENU_DIR } from '@/config/consts'
+import { MenuType } from '@/enums'
 
 const route = useRoute()
 const router = useRouter()
@@ -46,7 +47,7 @@ const breadcrumbList = computed(() => {
 
 // Click Breadcrumb
 const onBreadcrumbClick = (item: Menu.MenuOptions, index: number) => {
-  if (index !== breadcrumbList.value.length - 1 && item.menuTypeCd !== MENU_DIR) router.push(item.path)
+  if (index !== breadcrumbList.value.length - 1 && item.menuType !== MenuType.DIRECTORY.key) router.push(item.path)
 }
 </script>
 
