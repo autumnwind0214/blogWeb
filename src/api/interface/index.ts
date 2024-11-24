@@ -11,10 +11,10 @@ export interface IResultData<T = any> extends IResult {
 
 export interface IPage<T = any> {
   current: number;
-  limit: number;
-  totalPage: number;
+  pages: number;
+  size: number;
   total: number;
-  rows: T[];
+  records: T[];
   param?: { [key: string]: any } | string;
 }
 

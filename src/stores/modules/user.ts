@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia';
 import {ref} from 'vue';
 import piniaPersistConfig from '@/stores/helper/persist';
-import type {ILogin} from '@/api/interface/user/login';
+import type {ILogin} from '@/api/interface/system/login';
 
 export const useUserStore = defineStore(
     'user',

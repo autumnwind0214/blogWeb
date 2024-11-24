@@ -133,9 +133,7 @@
 </template>
 
 <script setup lang="ts">
-// import { useOptionsStore } from '@/stores/modules/options'
 import IconChoose from '@/components/IconChoose/index.vue'
-// import { getBtnExits, getMenuTree } from '@/api/modules/system/menu';
 import type { IMenu } from '@/api/interface/system/menu'
 import type { FormItemRule } from 'element-plus/es/components/form/src/types'
 import { ref, watch } from 'vue'

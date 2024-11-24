@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { validatePasswordFormat } from '@/config/validator'
-import { changePassword } from '@/api/modules/user/user'
+import { changePassword } from '@/api/modules/system/user'
 import { ElMessage } from 'element-plus'
 
 const validateOldNewPassword = (rule: any, value: any, callback: (error?: string | Error) => void) => {

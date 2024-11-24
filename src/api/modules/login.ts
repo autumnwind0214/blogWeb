@@ -1,15 +1,15 @@
 import http from '@/api'
-import { SYSTEM_SERVICE, USER_SERVICE } from '@/api/helper/prefix'
-import type { ILogin } from '@/api/interface/user/login'
+import { SYSTEM_SERVICE } from '@/api/helper/prefix'
+import type { ILogin } from '@/api/interface/system/login'
 
 // 用户登录
 export const loginApi = (params: ILogin.LoginParams) => {
-  return http.post<ILogin.LoginInfo>(USER_SERVICE + `/login`, params, { loading: false })
+  return http.post<ILogin.LoginInfo>(SYSTEM_SERVICE + `/user/login`, params, { loading: false })
 }
 
 // 用户注册
 export const registerApi = (params: ILogin.RegisterParams) => {
-  return http.post(USER_SERVICE + `/register`, params, { loading: false })
+  return http.post(SYSTEM_SERVICE + `/user/register`, params, { loading: false })
 }
 
 // 获取菜单列表
@@ -24,7 +24,7 @@ export const getAuthButtonListApi = () => {
 
 // 用户退出登录
 export const logoutApi = () => {
-  return http.post(USER_SERVICE + `/logout`)
+  return http.post(SYSTEM_SERVICE + `/user/logout`)
 }
 
 // 获取用户角色
