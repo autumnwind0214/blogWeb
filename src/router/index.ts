@@ -5,6 +5,7 @@ import { LOGIN_URL, ROUTER_WHITE_LIST } from '@/config'
 import { useUserStore } from '@/stores/modules/user'
 import { useAuthStore } from '@/stores/modules/auth'
 import { initDynamicRouter } from '@/router/modules/dynamicRouter'
+import { useOptionsStore } from '@/stores/modules/options'
 
 /**
  * @description 📚 路由参数配置简介
@@ -35,6 +36,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
   const authStore = useAuthStore()
+  const optionsStore = useOptionsStore()
 
   // 1.NProgress 开始
   NProgress.start()
@@ -65,11 +67,14 @@ router.beforeEach(async (to, from, next) => {
   // 6.如果没有菜单列表，就重新请求菜单列表并添加动态路由
   if (!authStore.isLoaded) {
     await initDynamicRouter()
-    return next({ path: LOGIN_URL, replace: true })
+    return next({ ...to, replace: true })
   }
 
   // 7.存储 routerName 做按钮权限筛选
   authStore.setRouteName(to.name as string)
+
+  // 加载所有字典信息
+  optionsStore.getAllDictList()
 
   // 8.正常访问页面
   next()

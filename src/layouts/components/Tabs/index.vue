@@ -29,6 +29,7 @@ import { useAppStore } from '@/stores/modules/app';
 import type { TabsMenuProps } from '@/stores/interface/tabs';
 import type { TabPaneName, TabsPaneContext } from 'element-plus';
 import SvgIcon from '@/components/SvgIcon/index.vue';
+import { TrueFalseEnum } from '@/enums'
 defineOptions({
   name: 'Tabs'
 });
@@ -53,15 +54,15 @@ onMounted(() => {
 watch(
   () => route.fullPath,
   () => {
-    if (route.meta.isFull === 'T') return;
+    if (route.meta.isFull === TrueFalseEnum.T) return;
     tabsMenuValue.value = route.fullPath;
     const tabsParams: TabsMenuProps = {
       icon: route.meta.icon as string,
       title: route.meta.title as string,
       path: route.fullPath,
       name: route.name as string,
-      close: route.meta.isAffix !== 'T',
-      isKeepAlive: route.meta.isKeepAlive === 'T'
+      close: route.meta.isAffix !== TrueFalseEnum.T,
+      isKeepAlive: route.meta.isKeepAlive === TrueFalseEnum.T
     };
     tabStore.addTabs(tabsParams);
   },
@@ -85,14 +86,14 @@ const tabsDrop = () => {
 // 初始化需要固定的 tabs
 const initTabs = () => {
   authStore.flatMenuListGet.forEach(item => {
-    if (item.meta.isAffix === 'T' && item.meta.isHidden === 'F' && item.meta.isFull === 'F') {
+    if (item.meta.isAffix === TrueFalseEnum.T && item.meta.isHidden === TrueFalseEnum.F && item.meta.isFull === TrueFalseEnum.F) {
       const tabsParams = {
         icon: item.meta.icon,
         title: item.meta.title,
         path: item.path,
         name: item.name,
-        close: item.meta.isAffix !== 'T',
-        isKeepAlive: item.meta.isKeepAlive === 'T'
+        close: item.meta.isAffix !== TrueFalseEnum.T,
+        isKeepAlive: item.meta.isKeepAlive === TrueFalseEnum.T
       };
       tabStore.addTabs(tabsParams);
     }

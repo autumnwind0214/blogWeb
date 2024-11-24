@@ -28,10 +28,10 @@ export const staticRouter: RouteRecordRaw[] = [
         meta: {
           title: '首页',
           icon: 'HomeFilled',
-          hasAffix: TrueFalseEnum.T,
-          hasFull: TrueFalseEnum.F,
-          hasHidden: TrueFalseEnum.F,
-          hasKeepAlive: TrueFalseEnum.T
+          isAffix: TrueFalseEnum.T,
+          isFull: TrueFalseEnum.F,
+          isHidden: TrueFalseEnum.F,
+          isKeepAlive: TrueFalseEnum.T
         }
       }
     ]

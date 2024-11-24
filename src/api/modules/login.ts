@@ -14,12 +14,12 @@ export const registerApi = (params: ILogin.RegisterParams) => {
 
 // 获取菜单列表
 export const getAuthMenuListApi = () => {
-  return http.get<Menu.MenuOptions[]>(SYSTEM_SERVICE + `/menu`, {}, { loading: false })
+  return http.get<Menu.MenuOptions[]>(SYSTEM_SERVICE + `/menu/getAuthMenuList`, {}, { loading: false })
 }
 
 // 获取按钮权限
 export const getAuthButtonListApi = () => {
-  return http.get<string[]>(SYSTEM_SERVICE + `/btn/permissions`, {}, { loading: false })
+  return http.get<string[]>(SYSTEM_SERVICE + `/menu/getAuthButtonList`, {}, { loading: false })
 }
 
 // 用户退出登录

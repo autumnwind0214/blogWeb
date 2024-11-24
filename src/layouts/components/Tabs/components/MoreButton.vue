@@ -60,6 +60,7 @@ import { useKeepAliveStore } from '@/stores/modules/keepAlive';
 import { useRoute, useRouter } from 'vue-router';
 import { useAppStore } from '@/stores/modules/app';
 import { CircleClose, DArrowLeft, DArrowRight, FolderDelete, FullScreen, Remove } from '@element-plus/icons-vue';
+import { TrueFalseEnum } from '@/enums'
 
 const route = useRoute();
 const router = useRouter();
@@ -87,7 +88,7 @@ const maximize = () => {
 
 // Close Current
 const closeCurrentTab = () => {
-  if (route.meta.isAffix === 'T') return;
+  if (route.meta.isAffix === TrueFalseEnum.T) return;
   tabStore.removeTabs(route.fullPath);
   keepAliveStore.removeKeepAliveName(route.name as string);
 };

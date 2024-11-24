@@ -96,7 +96,7 @@ export function getShowMenuList(menuList: Menu.MenuOptions[]): Menu.MenuOptions[
   const newMenuList: Menu.MenuOptions[] = JSON.parse(JSON.stringify(menuList))
   return newMenuList.filter(item => {
     item.children?.length && (item.children = getShowMenuList(item.children))
-    return item.meta?.hasHidden === 0
+    return item.meta?.isHidden === 0
   })
 }
 

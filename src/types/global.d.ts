@@ -15,12 +15,12 @@ declare namespace Menu {
   interface MetaProps {
     icon: string;
     title: string;
-    hasLink?: number;
-    hasHidden: number;
-    hasFull: number;
-    hasAffix: number;
-    hasKeepAlive: number;
-    useDataScope: string;
+    isLink?: number;
+    isHidden: number;
+    isFull: number;
+    isAffix: number;
+    isKeepAlive: number;
+    useDataScope: number;
   }
 }
 

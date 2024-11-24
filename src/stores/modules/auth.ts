@@ -28,10 +28,9 @@ export const useAuthStore = defineStore('auth', () => {
   // 递归处理后的所有面包屑导航列表
   const breadcrumbListGet = computed(() => getAllBreadcrumbList(authMenuList.value))
 
-  // todo
   async function getAuthButtonList() {
-    // const { data } = await getAuthButtonListApi()
-    // authButtonList.value = data
+    const { data } = await getAuthButtonListApi()
+    authButtonList.value = data
   }
 
   // Get AuthMenuList

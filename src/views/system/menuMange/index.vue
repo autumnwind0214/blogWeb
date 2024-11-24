@@ -27,10 +27,10 @@
       </template>
       <template #useDataScope="scope">
         <el-switch
-          v-if="scope.row.menuType == '1002002'"
+          v-if="scope.row.menuType == MenuType.MENU.key"
           v-model="scope.row.meta.useDataScope"
-          :active-value="'T'"
-          :inactive-value="'F'"
+          :active-value=TrueFalseEnum.T
+          :inactive-value=TrueFalseEnum.F
           :loading="switchLoading"
           :before-change="() => changeDataScope(scope.row)"
         />
@@ -80,7 +80,7 @@ import HighCode from '@/components/HighCode/index.vue'
 import { computed, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import { MenuType } from '@/enums'
+import { MenuType, TrueFalseEnum } from '@/enums'
 import { useOptionsStore } from '@/stores/modules/options'
 
 defineOptions({
@@ -115,11 +115,6 @@ const columns: ColumnProps<Menu.MenuOptions>[] = [
   { prop: 'name', label: '路由名称' },
   { prop: 'path', label: '路由地址' },
   { prop: 'component', label: '组件路径' },
-  {
-    prop: 'useDataScope',
-    label: '数据权限支持',
-    width: 100
-  },
   { prop: 'permissions', label: '权限', tag: true, width: 200 },
   { prop: 'operation', label: '操作', width: 300, fixed: 'right' }
 ]
@@ -136,11 +131,11 @@ const openAddEdit = async (title: string, row: any = {}, isAdd = true) => {
       icon: '',
       sort: sort,
       menuType: row.menuType === undefined || row.menuType === '' ? MenuType.DIRECTORY.key : row.menuType,
-      hasLink: 0,
-      hasHidden: 0,
-      hasFull: 0,
-      hasAffix: 0,
-      hasKeepAlive: 0
+      isLink: TrueFalseEnum.F,
+      isHidden: TrueFalseEnum.F,
+      isFull: TrueFalseEnum.F,
+      isAffix: TrueFalseEnum.F,
+      isKeepAlive: TrueFalseEnum.F
     }
   } else {
     const { data } = await getMenuInfo({ id: row.id })
@@ -216,7 +211,7 @@ const changeDataScope = (params: Menu.MenuOptions) => {
   }
 
   return new Promise((resolve, reject) => {
-    if (params.meta.useDataScope === 'T') {
+    if (params.meta.useDataScope === TrueFalseEnum.T) {
       ElMessageBox.confirm(
         `您确认要关闭菜单 [${params.meta.title}] 数据权限支持吗? 此操作有可能导致数据权限失效 ！！`,
         '温馨提示',

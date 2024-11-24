@@ -4,6 +4,7 @@ import { LOGIN_URL } from '@/config'
 import router from '@/router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useOptionsStore } from '@/stores/modules/options'
+import { TrueFalseEnum } from '@/enums'
 
 // 引入 views 文件夹下所有 vue 文件
 const modules = import.meta.glob('@/views/**/*.vue')
@@ -31,7 +32,7 @@ export const initDynamicRouter = async () => {
       if (item.component && typeof item.component == 'string') {
         item.component = modules['/src/views' + item.component + '.vue']
       }
-      if (item.meta.hasFull === 1) {
+      if (item.meta.isFull === TrueFalseEnum.T) {
         router.addRoute(item as unknown as RouteRecordRaw)
       } else {
         router.addRoute('layout', item as unknown as RouteRecordRaw)

@@ -49,18 +49,17 @@
           </el-form-item>
         </el-col>
       </el-row>
-
       <el-row :gutter="20">
         <el-col :span="12" v-if="paramsProps.row.menuType !== MenuType.BUTTON.key">
           <el-form-item label="是否外链" prop="isLink">
-            <el-radio-group v-model="paramsProps.row.hasLink">
-              <el-radio value="1" border> 是</el-radio>
-              <el-radio value="0" border> 否</el-radio>
+            <el-radio-group v-model="paramsProps.row.isLink">
+              <el-radio :value=1 border> 是</el-radio>
+              <el-radio :value=0 border> 否</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
 
-        <el-col :span="12" v-if="paramsProps.row.menuType !== MenuType.BUTTON.key && paramsProps.row.hasLink === '1'">
+        <el-col :span="12" v-if="paramsProps.row.menuType !== MenuType.BUTTON.key && paramsProps.row.isLink === 1">
           <el-form-item label="外链地址" prop="redirect">
             <el-input v-model="paramsProps.row.redirect" placeholder="请填写外链地址" clearable />
           </el-form-item>
@@ -91,36 +90,36 @@
         </el-col>
 
         <el-col :span="12">
-          <el-form-item label="显示状态" prop="hasHidden">
-            <el-radio-group v-model="paramsProps.row.hasHidden">
-              <el-radio value="0" border> 显示</el-radio>
-              <el-radio value="1" border> 隐藏</el-radio>
+          <el-form-item label="显示状态" prop="isHidden">
+            <el-radio-group v-model="paramsProps.row.isHidden">
+              <el-radio :value=0 border> 显示</el-radio>
+              <el-radio :value=1 border> 隐藏</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
 
         <el-col :span="12" v-if="paramsProps.row.menuType === MenuType.MENU.key">
-          <el-form-item label="是否全屏" prop="hasFull">
-            <el-radio-group v-model="paramsProps.row.hasFull">
-              <el-radio value="1" border> 是</el-radio>
-              <el-radio value="0" border> 否</el-radio>
+          <el-form-item label="是否全屏" prop="isFull">
+            <el-radio-group v-model="paramsProps.row.isFull">
+              <el-radio :value=1 border> 是</el-radio>
+              <el-radio :value=0 border> 否</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
 
         <el-col :span="12" v-if="paramsProps.row.menuType === MenuType.MENU.key">
-          <el-form-item label="固定标签页" prop="hasAffix">
-            <el-radio-group v-model="paramsProps.row.hasAffix">
-              <el-radio value="1" border> 是</el-radio>
-              <el-radio value="0" border> 否</el-radio>
+          <el-form-item label="固定标签页" prop="isAffix">
+            <el-radio-group v-model="paramsProps.row.isAffix">
+              <el-radio :value=1 border> 是</el-radio>
+              <el-radio :value=0 border> 否</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
         <el-col :span="12" v-if="paramsProps.row.menuType === MenuType.MENU.key">
-          <el-form-item label="是否缓存" prop="hasKeepAlive">
-            <el-radio-group v-model="paramsProps.row.hasKeepAlive">
-              <el-radio value="1" border> 是</el-radio>
-              <el-radio value="0" border> 否</el-radio>
+          <el-form-item label="是否缓存" prop="isKeepAlive">
+            <el-radio-group v-model="paramsProps.row.isKeepAlive">
+              <el-radio :value=1 border> 是</el-radio>
+              <el-radio :value=0 border> 否</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -141,8 +140,8 @@ import type { IMenu } from '@/api/interface/system/menu'
 import type { FormItemRule } from 'element-plus/es/components/form/src/types'
 import { ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
-import { MenuType } from '@/enums'
-import { getBtnExits } from '@/api/modules/system/menu'
+import { MenuType, TrueFalseEnum } from '@/enums'
+import { getBtnExits, getMenuTree } from '@/api/modules/system/menu'
 
 defineOptions({
   name: 'MenuForm'
@@ -159,7 +158,7 @@ const paramsProps = ref<View.DefaultParams>({
 })
 
 watch(
-  () => [paramsProps.value.row.menuType, paramsProps.value.row.hasLink],
+  () => [paramsProps.value.row.menuType, paramsProps.value.row.isLink],
   newVal => {
     const [menuType, isLink] = newVal
     let ruleData: Record<string, FormItemRule[]> = {
@@ -172,13 +171,13 @@ watch(
         ruleData['icon'] = [{ required: true, message: '请填写图标' }]
         ruleData['name'] = [{ required: true, message: '请填写路由名称' }]
         ruleData['path'] = [{ required: true, message: '请填写路由地址' }]
-        if (isLink === 'T') {
+        if (isLink === TrueFalseEnum.T) {
           ruleData['redirect'] = [{ required: true, message: '请填写外链地址' }]
         }
         break
       case MenuType.MENU.key:
         ruleData['icon'] = [{ required: true, message: '请填写图标' }]
-        if (isLink === 'T') {
+        if (isLink === TrueFalseEnum.T) {
           ruleData['redirect'] = [{ required: true, message: '请填写外链地址' }]
         } else {
           ruleData['name'] = [{ required: true, message: '请填写路由名称' }]
@@ -199,13 +198,13 @@ watch(
 )
 
 const validatePermission = (rule: any, value: any, callback: any) => {
-  getBtnExits({ permissions: value, id: paramsProps.value.row?.id }).then(res => {
+  getBtnExits({ permission: value, id: paramsProps.value.row?.id }).then(res => {
     if (res.data.permissionCount > 0) {
-      callback(new Error('权限已存在!'));
+      callback(new Error('权限已存在!'))
     } else {
-      callback();
+      callback()
     }
-  });
+  })
 }
 
 // 接收父组件传过来的参数
@@ -218,9 +217,9 @@ const acceptParams = (params: View.DefaultParams) => {
 const parentMenus = ref<IMenu.Tree[]>([])
 
 const loadParentMenus = () => {
-  // getMenuTree({ nodeId: paramsProps.value.row?.id }).then(res => {
-  //   parentMenus.value = res.data;
-  // });
+  getMenuTree({ nodeId: paramsProps.value.row?.id }).then(res => {
+    parentMenus.value = res.data
+  })
 }
 const treeProps = {
   label: 'title',

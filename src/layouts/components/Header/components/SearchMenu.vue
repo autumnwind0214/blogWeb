@@ -32,10 +32,11 @@ import { ref, computed, nextTick } from 'vue'
 import { Search } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/modules/auth'
+import { TrueFalseEnum } from '@/enums'
 
 const router = useRouter()
 const authStore = useAuthStore()
-const menuList = computed(() => authStore.flatMenuListGet.filter(item => item.meta.isHidden === 'F'))
+const menuList = computed(() => authStore.flatMenuListGet.filter(item => item.meta.isHidden === TrueFalseEnum.F))
 
 const searchMenuList = (queryString: string, cb: Function) => {
   const results = queryString ? menuList.value.filter(filterNodeMethod(queryString)) : menuList.value

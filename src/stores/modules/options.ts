@@ -22,7 +22,6 @@ export const useOptionsStore = defineStore(
     }
 
     function getDictOptions(type: string) {
-      console.log('getDictOptions--->', dictOptions.value[type])
       return dictOptions.value[type] || []
     }
 

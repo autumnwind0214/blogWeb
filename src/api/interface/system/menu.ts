@@ -17,12 +17,12 @@ export namespace IMenu {
     deep?: number;
     menuType?: number;
     permissions?: string;
-    hasHidden?: number;
+    isHidden?: number;
     hasChildren?: number;
-    hasLink?: number;
-    hasFull?: number;
-    hasAffix?: number;
-    hasKeepAlive?: number;
+    isLink?: number;
+    isFull?: number;
+    isAffix?: number;
+    isKeepAlive?: number;
   }
 
   export interface Tree {
@@ -33,7 +33,7 @@ export namespace IMenu {
   }
 
   export interface PermissionQuery {
-    id: string;
-    permissions: string;
+    id: number;
+    permission: string;
   }
 }

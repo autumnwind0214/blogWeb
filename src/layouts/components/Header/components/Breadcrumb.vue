@@ -24,7 +24,6 @@ import { useAuthStore } from '@/stores/modules/auth'
 import { HOME_URL } from '@/config'
 import { useAppStore } from '@/stores/modules/app'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import { MENU_DIR } from '@/config/consts'
 import { MenuType } from '@/enums'
 
 const route = useRoute()
