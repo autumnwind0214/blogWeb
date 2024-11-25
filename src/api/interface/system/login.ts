@@ -18,11 +18,11 @@ export namespace ILogin {
     refreshToken: string;
     roles: string[];
     userInfo: UserInfo;
-    permissions: string[];
+    permission: string[];
   }
 
   export interface UserInfo {
-    id?: number;
+    id?: string;
     username: string;
     phone?: string;
     nickname?: string;

@@ -3,7 +3,7 @@ export namespace IDict {
   export interface DictCustom {
     callbackShowStyle: string;
     codeName: string;
-    id: number;
+    id: string;
     isLock: number;
     sort: number;
   }

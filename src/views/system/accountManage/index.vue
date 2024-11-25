@@ -15,7 +15,7 @@
       >
         <!-- 表格 header 按钮 -->
         <template #tableHeader="scope">
-          <el-button v-auth="'sys.user.create_btn'" type="primary" :icon="CirclePlus" @click="openUserAdd('新增用户')">
+          <el-button v-auth="'sys.user.add'" type="primary" :icon="CirclePlus" @click="openUserAdd('新增用户')">
             新增用户
           </el-button>
           <el-button
@@ -130,7 +130,7 @@ const optionsStore = useOptionsStore()
 
 // 表格配置项
 const columns: ColumnProps<IRole.Info>[] = [
-  { type: 'selection', width: 55, selectable: row => row.id !== 1 },
+  { type: 'selection', width: 55, selectable: row => row.id !== '1' },
   { prop: 'username', label: '账户', width: 150, align: 'left' },
   { prop: 'nickname', label: '昵称', width: 150, align: 'left' },
   { prop: 'phone', label: '手机号', width: 120 },

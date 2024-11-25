@@ -7,31 +7,31 @@ export namespace IRole {
   }
 
   export interface Info {
-    id: number;
+    id: string;
     roleName: string;
-    isLock?: string;
+    isLock?: number;
     permission?: string;
   }
 
   export interface Form {
-    id?: number;
+    id?: string;
     roleName: string;
   }
 
   export interface Menu {
     menuLists: MenuTree[];
-    selectIds: number[];
+    selectIds: string[];
   }
 
   export interface MenuTree {
-    id: number;
-    pid: number;
+    id: string;
+    pid: string;
     title: string;
     children: MenuTree[];
   }
 
   export interface MenuForm {
-    menuIds: number[];
-    roleId: number;
+    menuIds: string[];
+    roleId: string;
   }
 }

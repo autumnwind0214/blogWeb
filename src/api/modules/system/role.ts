@@ -44,7 +44,7 @@ export const deleteRole = (params: { ids: number[] }) => {
  * @param params
  * @returns {*}
  */
-export const getRoleMenus = (params: { roleId: number }) => {
+export const getRoleMenus = (params: { roleId: string }) => {
   return http.get<IRole.Menu>(SYSTEM_SERVICE + `/role/getRoleMenus`, params);
 };
 
@@ -54,5 +54,5 @@ export const getRoleMenus = (params: { roleId: number }) => {
  * @returns {*}
  */
 export const setRoleMenus = (params: IRole.MenuForm) => {
-  return http.put(SYSTEM_SERVICE + `/role/menu`, params);
+  return http.put(SYSTEM_SERVICE + `/role/setRoleMenus`, params);
 };

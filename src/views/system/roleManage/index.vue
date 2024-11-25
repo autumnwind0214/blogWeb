@@ -65,6 +65,7 @@ import RolePermissions from '@/views/system/roleManage/components/RolePermission
 import type { ColumnProps, ProTableInstance, SearchProps } from '@/components/ProTable/interface';
 import type { IRole } from '@/api/interface/system/role';
 import { ref } from 'vue';
+import { TrueFalseEnum } from '@/enums'
 
 defineOptions({
   name: 'RoleManage'
@@ -72,12 +73,13 @@ defineOptions({
 
 // 表格配置项
 const columns: ColumnProps<IRole.Info>[] = [
-  { type: 'selection', width: 80, selectable: row => row.isLock !== 'T' },
+  { type: 'selection', width: 80, selectable: row => row.isLock !== TrueFalseEnum.T },
   { prop: 'id', label: '编号', width: 80 },
   { prop: 'roleName', label: '角色名称' },
   { prop: 'permission', tag: true, label: '标识' },
   { prop: 'createTime', label: '创建时间' },
   { prop: 'updateTime', label: '修改时间' },
+  { prop: 'isLock', label: '修改时间' },
   { prop: 'operation', label: '操作', width: 250, fixed: 'right' }
 ];
 // 表格配置项

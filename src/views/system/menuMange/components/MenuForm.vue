@@ -84,8 +84,8 @@
         </el-col>
 
         <el-col :span="12" v-if="paramsProps.row.menuType !== MenuType.DIRECTORY.key">
-          <el-form-item label="权限" prop="permissions">
-            <el-input v-model="paramsProps.row.permissions" placeholder="请填写权限" clearable />
+          <el-form-item label="权限" prop="permission">
+            <el-input v-model="paramsProps.row.permission" placeholder="请填写权限" clearable />
           </el-form-item>
         </el-col>
 
@@ -181,11 +181,11 @@ watch(
           ruleData['name'] = [{ required: true, message: '请填写路由名称' }]
           ruleData['path'] = [{ required: true, message: '请填写路由地址' }]
           ruleData['component'] = [{ required: true, message: '请填写组件路径' }]
-          ruleData['permissions'] = [{ validator: validatePermission, trigger: 'blur' }]
+          ruleData['permission'] = [{ validator: validatePermission, trigger: 'blur' }]
         }
         break
       case MenuType.BUTTON.key:
-        ruleData['permissions'] = [{ validator: validatePermission, trigger: 'blur' }]
+        ruleData['permission'] = [{ validator: validatePermission, trigger: 'blur' }]
     }
     rules.value = ruleData
 

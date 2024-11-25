@@ -1,13 +1,13 @@
 declare namespace Menu {
   interface MenuOptions {
-    id: number;
-    pid: number;
+    id: string;
+    pid: string;
     path: string;
     name: string;
     sort: number;
     menuType: number;
     component?: string | (() => Promise<unknown>);
-    permissions?: string;
+    permission?: string;
     meta: MetaProps;
     children?: MenuOptions[];
   }

@@ -12,8 +12,7 @@
     >
       <!-- 表格 header 按钮 -->
       <template #tableHeader>
-        <!--<el-button v-auth="'sys.menu.create_btn'" type="primary" :icon="CirclePlus" @click="openAddEdit('新增菜单')">-->
-        <el-button type="primary" :icon="CirclePlus" @click="openAddEdit('新增菜单')">
+        <el-button v-auth="'sys.menu.add'" type="primary" :icon="CirclePlus" @click="openAddEdit('新增菜单')">
           新增菜单
         </el-button>
         <el-button type="info" :icon="Sort" @click="changeExpand"> 展开/折叠</el-button>
@@ -39,7 +38,7 @@
       <!-- 菜单操作 -->
       <template #operation="{ row }">
         <el-button
-          v-auth="'sys.menu.create_btn'"
+          v-auth="'sys.menu.add'"
           type="primary"
           v-if="row.menuType !== MenuType.BUTTON.key"
           link
@@ -49,7 +48,7 @@
           新增
         </el-button>
         <el-button
-          v-auth="'sys.menu.update_btn'"
+          v-auth="'sys.menu.edit'"
           type="primary"
           link
           :icon="EditPen"
@@ -57,7 +56,7 @@
         >
           编辑
         </el-button>
-        <el-button v-auth="'sys.menu.delete_btn'" type="primary" link :icon="Delete" @click="deleteInfo(row)"> 删除</el-button>
+        <el-button v-auth="'sys.menu.delete'" type="primary" link :icon="Delete" @click="deleteInfo(row)"> 删除</el-button>
         <el-button v-auth="'sys.menu.sql_btn'" type="primary" link :icon="SoldOut" @click="showSqlInfo(row)"> SQL</el-button>
       </template>
     </ProTable>
@@ -115,7 +114,7 @@ const columns: ColumnProps<Menu.MenuOptions>[] = [
   { prop: 'name', label: '路由名称' },
   { prop: 'path', label: '路由地址' },
   { prop: 'component', label: '组件路径' },
-  { prop: 'permissions', label: '权限', tag: true, width: 200 },
+  { prop: 'permission', label: '权限', tag: true, width: 200 },
   { prop: 'operation', label: '操作', width: 300, fixed: 'right' }
 ]
 const switchLoading = ref(false)
@@ -124,7 +123,7 @@ const menuFormRef = ref<InstanceType<typeof MenuForm>>()
 const openAddEdit = async (title: string, row: any = {}, isAdd = true) => {
   let orig = {}
   if (isAdd) {
-    let pid = row.id || 0
+    let pid = row.id || '0'
     const sort = presort(row, pid)
     orig = {
       pid: pid,

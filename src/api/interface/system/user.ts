@@ -14,7 +14,7 @@ export namespace IUser {
   }
 
   export interface Form {
-    id?: number;
+    id?: string;
     username?: string;
     password?: string;
     phone: string;
@@ -26,12 +26,12 @@ export namespace IUser {
   }
 
   export interface RoleForm {
-    roleIds: number[];
-    userId: number;
+    roleIds: string[];
+    userId: string;
   }
 
   export interface Info {
-    id?: number;
+    id?: string;
     username: string;
     phone: string;
     nickname: string;
@@ -46,7 +46,7 @@ export namespace IUser {
   }
 
   export interface RoleInfo {
-    id: number;
+    id: string;
     roleName: string;
   }
 }

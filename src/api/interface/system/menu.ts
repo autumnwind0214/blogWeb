@@ -5,9 +5,9 @@ export namespace IMenu {
   }
 
   export interface Form {
-    id?: number;
+    id?: string;
     title?: string;
-    pid?: number;
+    pid?: string;
     path?: string;
     name?: string;
     icon?: string;
@@ -16,7 +16,7 @@ export namespace IMenu {
     sort?: number;
     deep?: number;
     menuType?: number;
-    permissions?: string;
+    permission?: string;
     isHidden?: number;
     hasChildren?: number;
     isLink?: number;
@@ -26,14 +26,14 @@ export namespace IMenu {
   }
 
   export interface Tree {
-    id: number;
-    pid: number;
+    id: string;
+    pid: string;
     title: string;
     children: Tree[];
   }
 
   export interface PermissionQuery {
-    id: number;
+    id: string;
     permission: string;
   }
 }

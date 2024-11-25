@@ -30,8 +30,8 @@
           <template #default="{ node, data }">
             <span class="custom-tree-node">
               <span>{{ node.label }}</span>
-              <el-tag v-if="data.permissions && isShowPermissions" style="margin-left: 10px" size="small">
-                {{ data.permissions }}
+              <el-tag v-if="data.permission && isShowPermissions" style="margin-left: 10px" size="small">
+                {{ data.permission }}
               </el-tag>
             </span>
           </template>
@@ -109,13 +109,13 @@ const acceptParams = (params: View.DefaultParams) => {
 };
 
 const menuLists = ref<IRole.MenuTree[]>([]);
-const selectIds = ref<number[]>([]);
+const selectIds = ref<string[]>([]);
 
 /**
  * 获取权限信息
  * @param roleId
  */
-const getInfo = (roleId: number) => {
+const getInfo = (roleId: string) => {
   getRoleMenus({ roleId }).then(res => {
     menuLists.value = res.data.menuLists;
     selectIds.value = res.data.selectIds;
@@ -134,7 +134,7 @@ const handleSubmit = async () => {
   try {
     const checkedKeys = treeRef.value!.getCheckedKeys();
     const halfCheckedKeys = treeRef.value!.getHalfCheckedKeys();
-    if (paramsProps.value.row.id === 1 && import.meta.env.VITE_PREVIEW) {
+    if (paramsProps.value.row.id === '1' && import.meta.env.VITE_PREVIEW) {
       return ElMessage.warning({ message: '预览环境，禁止修改超级管理员权限，请谅解！' });
     }
     await paramsProps.value.api!({

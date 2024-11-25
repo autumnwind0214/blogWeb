@@ -2,15 +2,13 @@ import http from '@/api'
 import { SYSTEM_SERVICE } from '@/api/helper/prefix'
 import type { IMenu } from '@/api/interface/system/menu'
 
-const header = SYSTEM_SERVICE + '/menu'
-
 /**
  * 获取菜单列表
  * @param params
  * @returns {*}
  */
 export const getMenuList = (params: IMenu.Query) => {
-  return http.get<Menu.MenuOptions[]>(header + `/getMenuList`, params)
+  return http.get<Menu.MenuOptions[]>(SYSTEM_SERVICE + `/menu/getMenuList`, params)
 }
 
 /**
@@ -19,7 +17,7 @@ export const getMenuList = (params: IMenu.Query) => {
  * @returns {*}
  */
 export const addMenu = (params: IMenu.Form) => {
-  return http.post(header + `/add`, params)
+  return http.post(SYSTEM_SERVICE + `/menu/add`, params)
 }
 
 /**
@@ -46,8 +44,7 @@ export const deleteMenu = (params: { ids: string[] }) => {
  * @returns {*}
  */
 export const getMenuInfo = (params: { id: string }) => {
-  const { id } = params
-  return http.get(SYSTEM_SERVICE + `/sys-menu/${id}`)
+  return http.get(SYSTEM_SERVICE + `/menu/detail`, params)
 }
 
 /**
@@ -56,7 +53,7 @@ export const getMenuInfo = (params: { id: string }) => {
  * @returns {*}
  */
 export const getMenuTree = (params: { nodeId?: string }) => {
-  return http.get<IMenu.Tree[]>(header + `/tree`, params)
+  return http.get<IMenu.Tree[]>(SYSTEM_SERVICE + `/menu/tree`, params)
 }
 
 /**
@@ -65,7 +62,7 @@ export const getMenuTree = (params: { nodeId?: string }) => {
  * @returns {*}
  */
 export const getBtnExits = (params: IMenu.PermissionQuery) => {
-  return http.get<{ permissionCount: number }>(header + `/btn/exists`, params, {
+  return http.get<{ permissionCount: number }>(SYSTEM_SERVICE + `/menu/btn/exists`, params, {
     loading: false
   })
 }
