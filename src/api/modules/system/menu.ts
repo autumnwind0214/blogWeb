@@ -26,7 +26,7 @@ export const addMenu = (params: IMenu.Form) => {
  * @returns {*}
  */
 export const editMenu = (params: IMenu.Form) => {
-  return http.put(SYSTEM_SERVICE + `/sys-menu`, params)
+  return http.put(SYSTEM_SERVICE + `/menu/edit`, params)
 }
 
 /**
@@ -35,7 +35,7 @@ export const editMenu = (params: IMenu.Form) => {
  * @returns {*}
  */
 export const deleteMenu = (params: { ids: string[] }) => {
-  return http.delete(SYSTEM_SERVICE + `/sys-menu`, params)
+  return http.delete(SYSTEM_SERVICE + `/menu/delete`, params)
 }
 
 /**

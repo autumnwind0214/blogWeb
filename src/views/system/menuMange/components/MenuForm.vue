@@ -208,6 +208,7 @@ const validatePermission = (rule: any, value: any, callback: any) => {
 // 接收父组件传过来的参数
 const acceptParams = (params: View.DefaultParams) => {
   paramsProps.value = params
+  console.log('paramsProps--->', paramsProps.value)
   visible.value = true
   loadParentMenus()
 }
